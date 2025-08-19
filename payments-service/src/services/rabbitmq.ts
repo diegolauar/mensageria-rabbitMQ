@@ -18,10 +18,8 @@ export async function searchOrdersPayment(url: string) {
       const order = JSON.parse(msg.content.toString());
       console.log("[RabbitMQ] Mensagem recebida:", order);
 
-      // Processa pagamento
       const paymentResult = await processPayment(order);
 
-      // Envia resultado para outra fila
       const payload = {
         order_id: order.id,
         content: paymentResult.total,

@@ -4,14 +4,10 @@ import { searchOrdersPayment } from './services/rabbitmq';
 
 dotenv.config();
 
-
-
 const fastify = Fastify({ logger: true });
-
 
 // RabbitMQ connection
 const rabbitUrl = process.env.RABBITMQ_URL!;
-
 
 const start = async () => {
   try {

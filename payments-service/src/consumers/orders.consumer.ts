@@ -12,8 +12,6 @@ const db = drizzle(client);
 export async function processPayment(order: any) {
   console.log(`Processing payment for order ${order.id}`);
 
-  // Simulate payment processing
-  // await new Promise(resolve => setTimeout(resolve, 2000));
 
   const payment = {
     id: crypto.randomUUID(),
