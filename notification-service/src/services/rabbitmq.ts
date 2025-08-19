@@ -1,4 +1,5 @@
 import amqp from "amqplib";
+import { processNotification } from "./sendDataBase";
 
 export async function searchPaymentNotification(url: string) {
   const connection = await amqp.connect(url);
@@ -12,11 +13,12 @@ export async function searchPaymentNotification(url: string) {
     if (!msg) return;
 
     try {
-      const payment = JSON.parse(msg.content.toString());
-      console.log("[RabbitMQ] Mensagem recebida:", payment);
+      const notification = JSON.parse(msg.content.toString());
+      console.log("[RabbitMQ] Mensagem recebida:", notification);
+      processNotification(notification)
       channel.ack(msg);
     } catch (error) {
-      console.error("[RabbitMQ] Erro processando pagamento:", error);
+      console.error("[RabbitMQ] Erro processando Notification:", error);
       channel.nack(msg, false, true);
     }
   });
